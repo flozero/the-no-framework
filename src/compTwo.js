@@ -5,17 +5,18 @@ export class MyCustomElementSecond extends HTMLElement {
       super();
   
       const state = useState((state) => {
-        text.innerText = state.count
-      })
+        console.log(state)
+        text.innerText = state.countTwo
+      }, ["countTwo"])
   
       const button = Object.assign(
         document.createElement('button'),
         { innerHTML : 'button' ,
           id:'button-2',
-          classList: ["btn-blue"],
+          classList: ["bg-red-600"],
           innerText: "Click me",
           onclick: () => {
-            state.count += 1
+            state.countTwo += 1
           }
         }
       )
@@ -23,7 +24,7 @@ export class MyCustomElementSecond extends HTMLElement {
         document.createElement('p'),
         {
           id:'text-2',
-          innerText: state.count
+          innerText: state.countTwo
         }
       )
       

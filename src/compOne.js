@@ -6,7 +6,7 @@ export class MyCustomElement extends HTMLElement {
   
       const state = useState((state) => {
         text.innerText = state.count
-      })
+      }, ["count"])
   
       const button = Object.assign(
         document.createElement('button'),

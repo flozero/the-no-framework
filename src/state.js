@@ -1,18 +1,28 @@
 let instance = null;
-let subscribers = []
+let subscribers = new Set();
 
-export const useState = (cb) => {
-    subscribers.push(cb)
+const defineState = (state = {}) => (cb, listenTo = []) => {
+    subscribers.add({
+        cb,
+        listenTo
+    })
     if (!instance) {
-        instance = new Proxy({
-            count: 0
-        }, {
+        instance = new Proxy(state, {
             set: (target, prop, value) => {
                 target[prop] = value
-                subscribers.forEach((cb) => cb(instance))
+                subscribers.forEach((sub) => {
+                    if (sub.listenTo.includes(prop)) {
+                        sub.cb(instance, target)
+                    }
+                })
                 return true
             }
         })
     }
     return instance
 }
+
+export const useState = defineState({
+    count: 0,
+    countTwo: 0
+})
