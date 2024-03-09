@@ -2,10 +2,11 @@ let instance = null;
 let subscribers = new Set();
 
 const defineState = (state = {}) => (cb, listenTo = []) => {
-    subscribers.add({
+    const tmp = {
         cb,
         listenTo
-    })
+    }
+    subscribers.add(tmp)
     if (!instance) {
         instance = new Proxy(state, {
             set: (target, prop, value) => {
@@ -19,7 +20,7 @@ const defineState = (state = {}) => (cb, listenTo = []) => {
             }
         })
     }
-    return instance
+    return [instance, () => subscribers.delete(tmp)]
 }
 
 export const useState = defineState({

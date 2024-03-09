@@ -4,10 +4,15 @@ export class MyCustomElementSecond extends HTMLElement {
     constructor() {
       super();
   
-      const state = useState((state) => {
-        console.log(state)
+      const [state, unsubscribe] = useState((state) => {
+        if (state.countTwo > 5) {
+          console.log('unsubscribing'	)
+          unsubscribe()
+        }
         text.innerText = state.countTwo
       }, ["countTwo"])
+
+
   
       const button = Object.assign(
         document.createElement('button'),

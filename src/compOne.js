@@ -4,7 +4,7 @@ export class MyCustomElement extends HTMLElement {
     constructor() {
       super();
   
-      const state = useState((state) => {
+      const [state, unsubscribe]  = useState((state) => {
         text.innerText = state.count
       }, ["count"])
   
