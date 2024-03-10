@@ -25,5 +25,6 @@ const defineState = (state = {}) => (cb, listenTo = []) => {
 
 export const useState = defineState({
     count: 0,
-    countTwo: 0
+    countTwo: 0,
+    loading: "loading..."
 })
