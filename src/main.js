@@ -1,7 +1,6 @@
 import { useState } from './state'
 import './style.css'
-import {button} from './components/base/button'	
-import { div } from './components/base/div'
+import { span, div, button } from './components/base'
 
 const $ = (selector) => document.querySelector(selector)
 
@@ -30,8 +29,8 @@ const app = () => div({
         }),
         div({
             classList: ["bg-red-500"],
-            innerText: state.count,
             children: [
+                "<div>hello</div>",
                 div({
                     classList: ["bg-green-500"],
                     innerText: 'Hello',
@@ -41,7 +40,7 @@ const app = () => div({
                         }, ["count"])
                     },
                 }),
-                div({
+                span({
                     classList: ["bg-green-500"],
                     innerText: 'World'
                 }),
