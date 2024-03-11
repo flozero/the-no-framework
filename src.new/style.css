@@ -1,0 +1,74 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .btn-blue {
+    @apply bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded;
+  }
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 100%;
+  z-index: -10;
+  background-color: var(--contrast-color);
+}
+
+html, body {
+  height: 100%,
+  @apply bg-red-500;
+}
+
+main {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  position: relative;
+}
+
+.slideUp {
+  animation: slideUp .8s ease forwards;
+  transition: all .8s ease;
+}
+
+.slideIn {
+  animation: slideIn .8s ease forwards;
+  transition: all .8s ease;
+}
+
+.expand {
+  animation: expand .8s ease forwards;
+  transition: all .8s ease;
+}
+
+@keyframes slideIn {
+  0% {
+    transform: translateX(500px) scale(.2);
+  }
+  100% {
+    transform: translateX(0px) scale(1);
+  }
+}
+
+@keyframes slideUp {
+  0% {
+    transform: translateY(300px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+@keyframes expand {
+  0% {
+    transform: translateX(1400px);
+  }
+  100% {
+    transform: translateX(0px);
+  }
+}
