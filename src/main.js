@@ -1,6 +1,6 @@
 import './style.css'
 import { routerInit } from './router'
-import { button, div } from './components/base'
+import { navbar } from './components/molecules/navbar'
 
 const routes = {
     "/": {
@@ -16,31 +16,7 @@ const routes = {
 }
 
 document.getElementById("nav").appendChild(
-    div({
-        children: [
-            button({ 
-                classList: ["btn-blue"],
-                children: ["Home"],
-                render: (a) => {
-                    a.addEventListener("click", (e) => {
-                        e.preventDefault()
-                        window.navigation.navigate("/")
-                    })
-                }
-            }),
-            button({ 
-                classList: ["btn-blue"],
-                children: ["Count"],
-                render: (a) => {
-                    a.addEventListener("click", (e) => {
-                        e.preventDefault()
-                        window.navigation.navigate("/count")
-                    })
-                }
-            }),
-        ]
-    
-    })
+    navbar()
 )
 
 routerInit(routes, "app")
