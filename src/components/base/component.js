@@ -28,5 +28,4 @@ export const createComponent = (component_name) => {
     
         return component
     }
-
 }

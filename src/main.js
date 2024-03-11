@@ -1,61 +1,47 @@
-import { useState } from './state'
 import './style.css'
-import { span, div, button } from './components/base'
+import { routerInit } from './router'
+import { button, div } from './components/base'
 
-const $ = (selector) => document.querySelector(selector)
+const routes = {
+    "/": {
+        transition: "slideIn",
+        page: () => import("./pages/home"),
+        loading: (container) => container.innerHTML = "<div>loading</div>"
+    },
+    "/count": {
+        transition: "slideUp",
+        page: () => import("./pages/counter"),
+        loading: (container) => container.innerHTML = "<div>loading</div>"
+    }
+}
 
-const [state] = useState()
+document.getElementById("nav").appendChild(
+    div({
+        children: [
+            button({ 
+                classList: ["btn-blue"],
+                children: ["Home"],
+                render: (a) => {
+                    a.addEventListener("click", (e) => {
+                        e.preventDefault()
+                        window.navigation.navigate("/")
+                    })
+                }
+            }),
+            button({ 
+                classList: ["btn-blue"],
+                children: ["Count"],
+                render: (a) => {
+                    a.addEventListener("click", (e) => {
+                        e.preventDefault()
+                        window.navigation.navigate("/count")
+                    })
+                }
+            }),
+        ]
+    
+    })
+)
 
+routerInit(routes, "app")
 
-const fakePromise = () => new Promise((resolve) => {
-    setTimeout(() => {
-        resolve()
-    }, 4000)
-})
-
-fakePromise().then(() => {
-    state.loading = "Done"
-})
-
-const app = () => div({
-    classList: [],
-    children: [
-        button({
-            classList: ["btn-blue"],
-            innerText: 'Click me',
-            onclick: () => {
-                state.count += 1
-            }
-        }),
-        div({
-            classList: ["bg-red-500"],
-            children: [
-                "<div>hello</div>",
-                div({
-                    classList: ["bg-green-500"],
-                    innerText: 'Hello',
-                    render: (el) => {
-                        const [state] = useState(() => {
-                            el.innerText = state.count
-                        }, ["count"])
-                    },
-                }),
-                span({
-                    classList: ["bg-green-500"],
-                    innerText: 'World'
-                }),
-                div({
-                    classList: ["bg-green-500"],
-                    innerText: state.loading,
-                    render: (el) => {
-                        useState(() => {
-                            el.innerText = state.loading
-                        }, ["loading"])
-                    }
-                })
-            ]
-        })
-    ]
-})
-
-document.body.appendChild(app())
