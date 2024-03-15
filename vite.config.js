@@ -3,7 +3,12 @@ import { defineConfig } from 'vite'
 
 export default defineConfig({
   plugins: [],
-  build:{ 
+  build:{
+    rollupOptions: {
+      input: {
+        main: './src-flow/index.html',
+      }
+    },
     target: 'esnext',
     // rollupOptions: {
     //   input: {
